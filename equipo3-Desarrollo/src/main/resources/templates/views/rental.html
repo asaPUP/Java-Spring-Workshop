@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="es-MX">
+<div th:replace="layout/header :: estilos"></div>
+
+<body>
+	<div th:replace="layout/header :: header"></div>
+	<div class="d-flex" id="wrapper">
+		<div th:replace="layout/header :: menu"></div>
+		<div id="page-content-wrapper" style="width: 100%;">
+			<!-- Page content-->
+			<div id="liveAlertPlaceholder"></div>
+			<div class="container-fluid"
+				style="margin-top: 15px; margin-bottom: 10px; text-align: center">
+
+				<h1>Registro de rentas</h1><hr>
+				<form id="renta">
+					<input type="hidden">
+					
+					<p>
+						<font color="red">*</font> N&uacutemero de cliente: <input
+							type="number" id="numeroCliente"
+							placeholder="Numero de cliente" required>
+					</p>
+				
+					<p>
+						<font color="red">*</font> N&uacutemero de pelicula: <input
+							type="number" id="numeroPelicula"
+							placeholder="Numero de pelicula" required>
+					</p>
+					<!-- <button class="btn btn-info" data-toggle="modal" data-target="#modalFiltroTitulo"
+						onclick="numero()">Nueva renta</button> -->
+					<br>
+					<button class="btn btn-info" type="button" id="btnBuscar">Buscar</button>
+					<br>
+					<br>
+					<div id="tablaDiv" style="display:none;">
+					
+					<table class="table table-hover" id="tabla">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Pelicula</th>
+								<th scope="col">Precio de renta</th>
+							</tr>
+						</thead>
+						<tbody id="tMostrar">
+							<!-- <tr>
+								<td th:text="${inventario.film.filmId}"></td>
+								<td th:text="${inventario.film.title}"></td>
+								<td th:text="${inventario.film.rentalRate}"></td>
+							</tr> -->
+						</tbody>
+					</table>
+				
+
+					<div style="margin-left: 300px;"> 
+						<p>
+						Subtotal: $<label type="text" id="Subtotal">
+						</p>
+						<p>
+						IVA 16%: $<label type="text" id="IVA">
+						</p>
+						<p>
+						Total: $<label type="text" id="Total">
+						</p>
+					</div>
+					
+					<p>
+						<font color="red">*</font> Importe de pago: <input type="number"
+							 id="pagoImporte">
+					</p>
+					
+					<div style="margin-left: 300px;">
+					<p>
+						Devolucion de efectivo: $<label  id="cambio" disabled>
+					</p>
+					</div>
+					
+						<p>
+						<button class="btn btn-info" type="button"  id="bRegistrar">Rentar</button>
+						</p>
+
+					</div>
+					
+					<p>
+						<font color="red">* Datos obligatorios.</font>
+					</p>
+					<!--  <p>
+						<button type="button" onclick="buscar(false)">Registrar</button>
+					</p> -->
+					
+					<div class="modal fade " id="modalRegistro" tabindex="-1"
+						aria-labelledby="modalFiltroTitulo" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modalRegistroLabel">Registrar Renta</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+								<div id="liveAlertPlaceholderModal"></div>
+							        <p>Estas seguro de registrar la renta de la pelicula?</p>
+							    </div>
+							    <div class="modal-footer">
+							        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+							        <button class="btn btn-success" type="button" id="registrar">Registrar</button>
+							      </div>
+							</div>
+						</div>
+					
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:replace="layout/header :: footer"></div>
+	<div th:replace="layout/header :: scripts"></div>
+	<script th:src="@{assets/js/rental/rental.js}"></script>
+</body>
+</html>

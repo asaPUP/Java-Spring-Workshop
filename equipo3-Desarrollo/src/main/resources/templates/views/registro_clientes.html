@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="es-MX">
+<div th:replace="layout/header :: estilos"></div>
+<body>
+	<div th:replace="layout/header :: header"></div>
+	<div class="d-flex" id="wrapper">
+		<div th:replace="layout/header :: menu"></div>
+		<div id="page-content-wrapper" style="width: 100%;">
+			<!-- Page content-->
+			<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+				     th:text="${mensaje}"
+				     class="alert">
+			</div>
+
+			<h1 text align="center" id="title">Clientes</h1>
+			<h1 text align="center" style="display:none;" id="title2">Registro de Clientes</h1><hr>
+			<div class="container-fluid" style="margin-top:15px;margin-bottom:10px;text-align:left">
+			<div id="tableDiv">
+			
+			<button type="button" class="btn btn-info"id="nuevocliente">Nuevo Cliente</button><br><br>
+
+					<!-- Tabla clientes -->
+					<table class="table table-hover" id="tablaC">
+					<thead>
+						<tr>
+							<th scope="col">Id Cliente</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">E-mail</th>
+							<th scope="col">Id Tienda</th>
+							<th scope="col">Accion</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="CatalagoCustomers : ${CatalagoCustomers}">
+							<td scope="row" th:text="${CatalagoCustomers.customer_id}"></td>
+							<td th:text="${CatalagoCustomers.first_name}"></td>
+							<td  th:text="${CatalagoCustomers.last_name}"></td>
+							<!--<td scope="row">hola</td>
+							<td scope="row">tienda</td>-->
+							<td th:text="${CatalagoCustomers.email}"></td>
+							<!-- th:onclick="'javascript:detalles(\''+ ${Customer.customerId} +'\');'"-->
+							<td th:text="${CatalagoCustomers.store_id}"></td>
+							<td><button class="btn btn-info"><i class="bi bi-trash"></i>
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-info"id="nuevocliente2">Nuevo Cliente</button><br><br>
+				</div>
+								
+
+								<form id="RegistroForm" method="POST" style="display:none;" th:action="@{/insertarCustomer}">
+
+									<br>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Nombre: </label>
+										</div>
+										<div class="col">
+											<input type="text"  id="Nombre" name="Nombre" placeholder="Nombre" required>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Apellido: </label>
+										</div>
+										<div class="col">
+											<input type="text" id="Apellido" name="Apellido" placeholder="Apellido" required>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Email: </label>
+										</div>
+										<div class="col">
+											<input type="email" id="Email" name="Email" placeholder="Correo Electr&oacute;nico" required>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Tel&eacutefono: </label>
+										</div>
+										<div class="col">
+											<input type="number" id="Numero" name="Numero" placeholder="Tel&eacute;fono" onkeydown="filtro()" required>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Direcci&oacuten: </label>
+										</div>
+										<div class="col">
+											<input type="text" id="Direccion" name="Direccion" placeholder="Calle, n&uacute;mero, colonia" required>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Pa&iacutes: </label>
+										</div>
+										<div class="col">
+											<select id="selectCountry" name="selectCountry"  class="form-control" style=" margin: auto" required>
+												<option value="-1">Selecciona una opci&oacuten</option>
+												<option th:each="Country : ${Country}" th:value="${Country.countryId}" th:text="${Country.Country}" ></option>
+											</select>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Ciudad: </label>
+										</div>
+										<div class="col">
+											<select id="selectCity" name="selectCity"  class="form-control" style= "margin: auto" required>
+												<option value="-1">Selecciona una opci&oacuten</option>
+												
+											</select>
+										</div>
+									</div>
+
+
+									<div class="form-group d-flex align-items-center justify-content-center">
+										<div class="col-3 d-flex align-items-center justify-content-left">
+											<label><font color="red">*</font> Sucursal: </label>
+										</div>
+										<div class="col">
+											<select id="storeId"  name="storeId" class="form-control" style=" margin: auto" required>
+												<option value="-1">Selecciona una opci&oacuten</option>
+												<option th:each="Store : ${Store}" th:value="${Store.storeId}" th:text="${Store.storeId}" ></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group d-flex align-items-center ">
+										<div class="col-3 d-flex align-items-center content-left">
+										<p>
+										<font color="red">* Datos obligatorios.</font>
+									</p>
+										</div>
+									</div>
+									<div id="liveAlertPlaceholder"></div>
+									<div class="modal-footer">
+										<p>
+										<button id="CancelBtn" type="button" class="btn btn-danger"
+											>Cancelar</button>
+											</p>
+											<p>
+										<button  type="button" id="RegistrarBtn" class="btn btn-info" >Registar</button>
+										
+										</p>
+									</div>
+
+								</form>
+						
+			 <div class="modal fade " id="modalAdvertencia" tabindex="-1" aria-labelledby="modalFiltroTitulo"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="tituloModalCambia">Registro del Nuevo Cliente</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+									<div class="modal-body">
+							        <h1>Estas seguro de Registrar un nuevo Cliente?</h1>
+							    </div>
+									<div class="modal-footer">
+										<p>
+										<button id="botonCerrar2" type="button" class="btn btn-danger"
+											data-dismiss="modal">Cancelar</button>
+											</p>
+											<p>
+										<button  type="button" id="RegistrarBtn" class="btn btn-success">Registar</button>
+										</p>
+									</div>
+								</div>
+							</div>
+					</div>
+			</div>
+	</div>
+	</div>
+	</div>
+
+	<div th:replace="layout/header :: footer"></div>
+	<div th:replace="layout/header :: scripts"></div>
+
+	<script th:src="@{assets/js/customer.js}"></script>
+
+</body>
+
+</html>

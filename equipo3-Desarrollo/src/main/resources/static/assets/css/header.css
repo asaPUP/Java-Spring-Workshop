@@ -1,0 +1,41 @@
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Bebas Neue', cursive;
+}
+
+.modal-title{
+	color: white;
+}
+
+#contenedor li {
+    padding: 5px;
+    list-style: none;
+}
+
+#contenedor li a {
+    cursor: pointer;
+    float: center;
+    padding: 3px 7px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background: #018703;
+    color: white;
+}
+
+#invisible {
+    float: right;
+    padding: 3px 7px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background: white;
+    color: white;
+}
+
+input {
+    border-radius: 5px;
+    border-style: solid;
+}
+
+.multiple-selection{
+	border-radius: 5px;
+    border-style: solid;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="es-MX">
+<div th:replace="layout/header :: estilos"></div>
+<body>
+	<div th:replace="layout/header :: header"></div>
+	<div class="d-flex" id="wrapper">
+		<div th:replace="layout/header :: menu"></div>
+		<div class="container-fluid" style="margin-top: 15px; margin-bottom: 10px; text-align: center">
+			<!-- Page content-->
+			<div id="liveAlertPlaceholder"></div>
+
+			<h1>Registro de Devoluciones</h1><hr>
+				<form  id="renta" >
+				
+					<p>
+					
+						<font color="red">*</font> N&uacutemero de pelicula: <input
+							type="number"  id="inventoryID"
+							placeholder="Numero de pelicula" required>
+					
+			
+					<br><br><br>
+					<button class="btn btn-info" type="button" id="buscarPeli" >Buscar</button>
+					</p>
+					<br>
+				<div id="tablaDiv" style="display:none;">
+					<table class="table table-hover "  id="tabla1">
+						<thead>
+							<tr>
+								<th scope="col">Nombre de Cliente</th>
+								<th scope="col">Pelicula Rentada</th>
+								<th scope="col">Fecha de Renta</th>
+								<th scope="col">Fecha de Vigencia</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+						<tbody id="tablaInventario">
+							
+						</tbody>
+					</table>
+					<br>
+					<div id="liveAlertPlaceholderCalendar"></div>
+					<br>
+					<p>
+						<input type="hidden" >
+						<font color="red">*</font> Fecha de Devolucion <input
+							type="date"  id="fechaDevolucion">
+					</p>
+					<br>
+					</div>
+					<div id="tabla2Div" style="display:none;">
+					<table class="table table-hover"  id="tabla2">
+					
+				
+							<thead>
+								<tr>
+									<th scope="col">Nombre de Cliente</th>
+									<th scope="col">Pelicula Rentada</th>
+									<th scope="col">Dias de retraso</th>
+									<th scope="col">Multa</th>
+									<th scope="col">Fecha Seleccionada</th>
+								</tr>
+							</thead>
+							<tbody id="tablaCalendar">
+								
+							</tbody>
+						</table>
+					<br>
+					<div style="margin-left: 300px;"> 
+						<p>
+						Subtotal: $<label type="text" id="subtotal">
+						</p>
+						<p>
+						IVA 16%: $<label type="text" id="IVA">
+						</p>
+						<p>
+						Total: $<label type="text" id="Total">
+						</p>
+					</div>
+					
+						<p>
+						<button class="btn btn-info" type="button" data-toggle="modal" data-target="#modalRegistro">Devolver</button>
+							
+						</p>
+					
+					</div>
+					<p>
+						<font color="red">* Datos obligatorios.</font>
+					</p>
+					<div class="modal fade " id="modalRegistro" tabindex="-1"
+						aria-labelledby="modalFiltroTitulo" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modalRegistroLabel">Registrar Devolucion</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+								<div id="liveAlertPlaceholderModal"></div>
+							        <p>Estas seguro de Registrar la devolucion de la pelicula?</p>
+							    </div>
+							    <div class="modal-footer">
+							        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+							        <button class="btn btn-success" type="button" id="registrar">Registrar</button>
+							      </div>
+							</div>
+						</div>
+					
+					</div>
+					
+				</form>
+					
+			</div>
+			</div>
+	
+	<div th:replace="layout/header :: footer"></div>
+	<div th:replace="layout/header :: scripts"></div>
+   <script th:src="@{assets/js/devolucion.js}"></script>
+
+</body>
+
+</html>

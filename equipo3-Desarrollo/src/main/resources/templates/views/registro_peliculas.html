@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="es-MX">
+<div th:replace="layout/header :: estilos"></div>
+<body>
+	<div th:replace="layout/header :: header"></div>
+	<div class="d-flex" id="wrapper">
+		<div th:replace="layout/header :: menu"></div>
+		<div id="page-content-wrapper" style="width: 100%;">
+			<!-- Page content-->
+			<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+				th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+			</div>
+			<div class="container-fluid"style="margin-top: 15px; margin-bottom: 10px; text-align: center">
+			
+				<h1>Registro de Pel&iacuteculas</h1><hr>
+				
+				<!-- FORM  -->
+				<form th:object="${Film}" method="POST" th:action="@{/InsertFilm}">
+					<!-- TITULO  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> T&iacutetulo: </label>
+						</div>
+						<div class="col">
+							<input type="text" th:field="*{title}" placeholder="T&iacute;tulo" required>
+						</div>
+					</div>
+					
+					<!-- DESCRIPCION  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Description: </label>
+						</div>
+						<div class="col">
+							<textarea cols="50" th:field="*{description}" placeholder="Description" required></textarea>
+						</div>
+					</div>
+					
+					<!-- IDIOMA  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Idioma: </label>
+						</div>
+						<div class="col">
+							<select name="selectLanguage" class="form-control" required>
+								<option value="-1">Selecciona una opci&oacuten</option>
+								<option th:each="Language : ${Language}" th:value="${Language.languageId}" th:text="${Language.name}"></option>
+							</select>
+						</div>
+					</div>
+					
+					<!-- DURACION  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Duraci&oacute;n: </label>
+						</div>
+						<div class="col">
+							<input type="number" size="text" min="1" max="30" th:field="*{length}" placeholder="Duraci&oacute;n" required>
+						</div>
+					</div>
+
+					<hr>
+					
+					<!-- PRECIO DE RENTA  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Precio de renta: </label>
+						</div>
+						<div class="col">
+							<input type="number" step=".01" th:field="*{rentalRate}" placeholder="Precio" required>
+						</div>
+					</div>
+					
+					<!-- PRECIO DE REEMPLAZO  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Costo de reemplazo: </label>
+						</div>
+						<div class="col">
+							<input type="number" step="1" th:field="*{replacementCost}" placeholder="Costo" required>
+						</div>
+					</div>
+					
+					<!-- CATEGORIA  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Categor&iacutea: </label>
+						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<select name="selectCategory" id="selectCategory" class="form-control multiple-selection" multiple="multiple" style="width: 75%; margin: auto" required>
+								<option th:each="Category : ${Category}" th:value="${Category.id}" th:text="${Category.name}"></option>
+							</select>
+						</div>
+					</div>
+					
+					<!-- CANTIDAD  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> N&uacutemero de copias: </label>
+						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<input type="number" name="addAmount" id="addAmount" placeholder="Copias" min="1" required>
+						</div>
+					</div>
+					
+					<!-- ACTORES  -->
+					<div class="form-group d-flex align-items-center justify-content-center">
+						<div class="col-3 d-flex align-items-center justify-content-left">
+							<label><font color="red">*</font> Actores: </label>
+						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<div id="contenedor">
+								<li>
+									<input name="nombre[]" type="text" placeholder="Nombre" required>
+									<span>   </span>
+									<input name="apellido[]" type="text" placeholder="Apellido" required><a class="agregar" onclick="crear_elemento();">&plus;</a><span id="invisible">&minus;</span>
+								</li>
+							</div>
+						</div>
+					</div>
+					
+					<!-- ENVIAR  -->
+					<p>
+						<font color="red">* Datos obligatorios.</font>
+					</p>
+					<p>
+						<button type="submit">Registrar</button>
+					</p>
+
+				</form>
+			</div>
+		</div>
+		</div>
+		<div th:replace="layout/header :: footer"></div>
+		<div th:replace="layout/header :: scripts"></div>
+
+		<script th:src="@{assets/js/films.js}"></script>
+</body>
+
+</html>
